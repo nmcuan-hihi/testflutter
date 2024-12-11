@@ -1,0 +1,16 @@
+{
+    "info": "Information",
+    "my_app": "My App",
+    "login_errors": {
+        "email_required": "Please enter your email",
+        "email_invalid": "Invalid email format",
+        "password_required": "Please enter your password",
+        "password_min_length": "Password must be at least 6 characters long"
+    },
+    "login_success": {
+        "login": "Login successful"
+    },
+    "login_form_username": "Username",
+    "login_form_password": "Password",
+    "login_screen_logo": "Login"
+}
