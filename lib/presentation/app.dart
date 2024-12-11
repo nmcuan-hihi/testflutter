@@ -1,7 +1,6 @@
 import 'package:testflutter/app/resources/language_manager.dart';
 import 'package:testflutter/app/resources/routes_manager.dart';
 import 'package:testflutter/presentation/login_screen.dart';
-import 'package:testflutter/presentation/post/bloc/post_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,13 +30,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider<PostCubit>(
-          create: (context) => PostCubit(),
-        ),
-      ],
-      child: MaterialApp(
+    return MaterialApp(
         // theme: ThemeData(
         //   primarySwatch: Colors.blue,
         // ),
@@ -47,7 +40,6 @@ class _AppState extends State<App> {
         debugShowCheckedModeBanner: false,
         home: const LoginScreen(),
         //routes: Routes.routes,
-      ),
-    );
+      );
   }
 }
