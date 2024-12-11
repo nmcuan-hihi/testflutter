@@ -25,30 +25,35 @@ class _Homepage extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: TextField(
-          decoration: InputDecoration(
-            hintText: "Tìm Kiếm ...",
-            border: InputBorder.none,
-            hintStyle: TextStyle(color: Colors.black),
-          ),
-          onChanged: (value){
-            setState(() {
-              timkiem = value;
-            });
-          },
-        ),
-      ),
       body: Column(
         children: [
-          if (timkiem.isNotEmpty)
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Text(
-              "Tìm Kiếm: $timkiem",
-            
+          Form(
+          child: Column(
+              children: [
+                Container(
+                  margin: EdgeInsets.only(top: 60),
+                  padding: EdgeInsets.symmetric(horizontal: 15),
+                  child: TextFormField(
+                   keyboardType: TextInputType.text,
+                   decoration: InputDecoration(
+                    labelText: 'Tìm kiếm ...',
+                    suffixIcon: Icon(Icons.search, color: Colors.green),
+                    border: OutlineInputBorder(),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black54, width: 2.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black54, width: 2.0),
+                    ),
+                   ),
+                   autovalidateMode: AutovalidateMode.onUserInteraction,
+                  
+                  ),
+                )
+              ],
             ),
-          )
+          ),
+          Expanded(child: _widgetOptions[_chon]),
         ],
       ),
       bottomNavigationBar: CupertinoTabBar(
