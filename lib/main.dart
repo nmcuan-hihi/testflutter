@@ -1,25 +1,18 @@
+import 'package:testflutter/app/resources/language_manager.dart';
+import 'package:testflutter/presentation/app.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:testflutter/presentation/favorites.dart';
-import 'presentation/homePage.dart';
-import './presentation/tuft.dart';
-import './presentation/booking.dart';
-import './presentation/profile.dart';
-void main() => runApp(MyApp());
+import 'package:firebase_core/firebase_core.dart';
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const Homepage(),
-        '/tuft': (context) => const TuftScreen(),
-        '/favorites': (context) => const Favorites(),
-        '/booking': (context) => const Booking(),
-        '/profile': (context) => const Profile(), 
-      },
-    );
-  }
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  await EasyLocalization.ensureInitialized();
+
+  runApp(EasyLocalization(
+    supportedLocales: const [englishLocal, vietnamLocal],
+    path: assetsPathLocalizations,
+    fallbackLocale: englishLocal,
+    child: const App(),
+  ));
 }
