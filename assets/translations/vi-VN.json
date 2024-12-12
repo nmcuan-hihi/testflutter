@@ -1,8 +1,9 @@
 {
-  
    "info": "Thông tin demo",
-   "my_app": "Ứng dụng của tôi",
+   "my_app": "Sports Booking",
+   "start": "Chào mừng đến với ",
    "email_required": "Vui lòng nhập email",
+   "or": "Hoặc",
    "email_invalid": "Định dạng email không hợp lệ",
    "password_required": "Vui lòng nhập mật khẩu",
    "password_min_length": "Mật khẩu phải có ít nhất 6 ký tự",
@@ -23,5 +24,4 @@
    "email_reset_required": "Email không chính xác",
    "email_not_found": "Email không chính xác",
    "have_acc": "Đã có tài khoản!"
-
 }

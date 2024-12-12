@@ -6,20 +6,6 @@ import 'package:testflutter/app/configs/route_name.dart';
 import 'homePage.dart';
 import 'forgot_password.dart';
 
-// Future<User?> loginWithEmailAndPassword(String email, String password) async {
-//   try {
-//     UserCredential userCredential = await FirebaseAuth.instance
-//         .signInWithEmailAndPassword(email: email, password: password);
-
-//     return userCredential.user;
-//   } on FirebaseAuthException catch (e) {
-//     print(e.code);
-//   } catch (e) {
-//     print('Đã xảy ra lỗi: $e');
-//   }
-//   return null;
-// }
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
