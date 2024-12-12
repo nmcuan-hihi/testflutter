@@ -1,4 +1,5 @@
 {
+  
    "info": "Thông tin demo",
    "my_app": "Ứng dụng của tôi",
    "email_required": "Vui lòng nhập email",
@@ -20,5 +21,7 @@
    "input_forgot_email": "Nhập email của bạn",
    "forgot_button": "Gửi email đặt lại mật khẩu",
    "email_reset_required": "Email không chính xác",
-   "email_not_found": "Email không chính xác"
+   "email_not_found": "Email không chính xác",
+   "have_acc": "Đã có tài khoản!"
+
 }

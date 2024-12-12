@@ -25,7 +25,7 @@ class _AppState extends State<App> {
   }
 
   void _getLocal() {
-    context.setLocale(englishLocal);
+    context.setLocale(vietnamLocal);
   }
 
   @override
@@ -39,7 +39,7 @@ class _AppState extends State<App> {
         locale: context.locale,
         debugShowCheckedModeBanner: false,
         home: const LoginScreen(),
-        //routes: Routes.routes,
+        routes: Routes.routes,
       );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:testflutter/app/configs/route_name.dart';
 import 'homePage.dart';
 import 'forgot_password.dart';
 
@@ -88,10 +89,10 @@ class _MyWidgetState extends State<LoginScreen> {
         //mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.only(top: 250, bottom: 100),
+            margin: const EdgeInsets.only(top: 250, bottom: 100),
             child: Text(
               'login_screen_logo'.tr(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 50,
                 fontWeight: FontWeight.bold,
                 color: Colors.green,
@@ -102,28 +103,28 @@ class _MyWidgetState extends State<LoginScreen> {
             key: formKey,
             child: Column(
               children: [
-                Container(
-                  padding: EdgeInsets.only(left: 15, right: 15),
+                 Container(
+                  padding: const EdgeInsets.only(left: 15, right: 15),
                   child: TextFormField(
                     controller: emailController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                         labelText: 'login_form_username'.tr(),
                         //hintText: 'Username',
-                        prefixIcon: Icon(Icons.person, color: Colors.green),
-                        border: OutlineInputBorder(),
-                        enabledBorder: OutlineInputBorder(
+                        prefixIcon: const Icon(Icons.person, color: Colors.green),
+                        border: const OutlineInputBorder(),
+                        enabledBorder: const OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.green, width: 2.0),
                         ),
-                        focusedBorder: OutlineInputBorder(
+                        focusedBorder: const OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.green, width: 2.0),
                         ),
                         suffixIcon: emailController.text.isEmpty
                             ? null
                             : IconButton(
-                                icon: Icon(
+                                 icon: Icon(
                                   Icons.clear,
                                   color: Colors.green,
                                 ),
@@ -152,7 +153,7 @@ class _MyWidgetState extends State<LoginScreen> {
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(top: 15, left: 15, right: 15),
+                  padding: const EdgeInsets.only(top: 15, left: 15, right: 15),
                   child: TextFormField(
                     controller: passwordController,
                     keyboardType: TextInputType.visiblePassword,
@@ -160,12 +161,12 @@ class _MyWidgetState extends State<LoginScreen> {
                     obscuringCharacter: '*',
                     decoration: InputDecoration(
                       labelText: 'login_form_password'.tr(),
-                      prefixIcon: Icon(Icons.key, color: Colors.green),
-                      border: OutlineInputBorder(),
-                      enabledBorder: OutlineInputBorder(
+                      prefixIcon: const Icon(Icons.key, color: Colors.green),
+                      border: const OutlineInputBorder(),
+                      enabledBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green, width: 2.0),
                       ),
-                      focusedBorder: OutlineInputBorder(
+                      focusedBorder: const OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green, width: 2.5),
                       ),
                       suffixIcon: passwordController.text.isEmpty? null:
@@ -202,7 +203,7 @@ class _MyWidgetState extends State<LoginScreen> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(left: 18, top: 10),
+            margin: const EdgeInsets.only(left: 18, top: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -211,11 +212,11 @@ class _MyWidgetState extends State<LoginScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ForgotPasswordScreen()));
+                            builder: (context) => const ForgotPasswordScreen()));
                   },
                   child: Text(
                     'forgot_password'.tr(),
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.green,
                       //fontWeight: FontWeight.bold,
                       fontSize: 17,
@@ -226,7 +227,7 @@ class _MyWidgetState extends State<LoginScreen> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(top: 10),
+            margin: const EdgeInsets.only(top: 10),
             child: ElevatedButton(
               onPressed: () => handleLogin(context),
               child: Text(
@@ -246,23 +247,30 @@ class _MyWidgetState extends State<LoginScreen> {
             ),
           ),
           Container(
-            margin: EdgeInsets.only(right: 15, top: 10),
+            margin: const EdgeInsets.only(right: 15, top: 10),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text(
                   "didn't_have_account".tr(),
-                  style: TextStyle(
+                  style:const TextStyle(
                     fontSize: 18,
                   ),
                 ),
-                Text(
-                  'sign_up'.tr(),
-                  style: TextStyle(
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteName.signUpScreen);
+                  },
+                  child: Text(
+                     'sign_up'.tr(),
+                  
+                  style: const TextStyle(
                     fontSize: 17,
                     color: Colors.green,
                   ),
+                  ),
                 ),
+                 
               ],
             ),
           ),
