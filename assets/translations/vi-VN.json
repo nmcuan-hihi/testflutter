@@ -13,5 +13,12 @@
    "forgot_password": "Bạn quên mật khẩu?",
    "login_button": "Đăng nhập",
    "didn't_have_account": "Bạn chưa có tải khoản?",
-   "sign_up": " Đăng ký"
+   "sign_up": " Đăng ký",
+   "error": "Lỗi",
+   "login_error": "Email hoặc mật khẩu không chính xác",
+   "forgot_password_title": "Quên mật khẩu",
+   "input_forgot_email": "Nhập email của bạn",
+   "forgot_button": "Gửi email đặt lại mật khẩu",
+   "email_reset_required": "Email không chính xác",
+   "email_not_found": "Email không chính xác"
 }

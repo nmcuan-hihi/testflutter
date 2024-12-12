@@ -3,26 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'homePage.dart';
+import 'forgot_password.dart';
 
-Future<User?> loginWithEmailAndPassword(String email, String password) async {
-  try {
-    UserCredential userCredential = await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password);
+// Future<User?> loginWithEmailAndPassword(String email, String password) async {
+//   try {
+//     UserCredential userCredential = await FirebaseAuth.instance
+//         .signInWithEmailAndPassword(email: email, password: password);
 
-    return userCredential.user;
-  } on FirebaseAuthException catch (e) {
-    if (e.code == 'user-not-found') {
-      print('Không tìm thấy người dùng với email này.');
-    } else if (e.code == 'wrong-password') {
-      print('Sai mật khẩu.');
-    } else {
-      print('Lỗi không xác định: ${e.message}');
-    }
-  } catch (e) {
-    print('Đã xảy ra lỗi: $e');
-  }
-  return null;
-}
+//     return userCredential.user;
+//   } on FirebaseAuthException catch (e) {
+//     print(e.code);
+//   } catch (e) {
+//     print('Đã xảy ra lỗi: $e');
+//   }
+//   return null;
+// }
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -35,41 +30,53 @@ class _MyWidgetState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+  String? loginlError;
   bool _obscurePassword = true;
+
+  @override
+  void initState() {
+    super.initState();
+    emailController.addListener(() {
+      setState(() {});
+    });
+    passwordController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   void handleLogin(BuildContext context) async {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
 
-    if (email.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('email_required'.tr())),
-      );
-      return;
-    } else if (password.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('password_required'.tr())),
-      );
-      return;
-    } else {
-      var user = await loginWithEmailAndPassword(email, password);
-      if (user != null) {
-        // Đăng nhập thành công
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('login_success'.tr())),
-        );
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) =>
-                  Homepage()), // Ensure Homepage() is a widget
-        );
-        // Chuyển sang màn hình khác hoặc xử lý thêm
-      } else {
-        // Đăng nhập thất bại
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('login_unsucess'.tr())),
-        );
+    setState(() {
+      loginlError = null;
+    });
+
+    if (formKey.currentState?.validate() == true) {
+      String email = emailController.text.trim();
+      String password = passwordController.text.trim();
+
+      try {
+        UserCredential userCredential = await FirebaseAuth.instance
+            .signInWithEmailAndPassword(email: email, password: password);
+
+        if (userCredential != null) {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => Homepage()),
+          );
+        }
+      } on FirebaseAuthException catch (e) {
+        setState(() {
+          loginlError = 'login_error'.tr();
+        });
       }
     }
   }
@@ -112,7 +119,20 @@ class _MyWidgetState extends State<LoginScreen> {
                         focusedBorder: OutlineInputBorder(
                           borderSide:
                               BorderSide(color: Colors.green, width: 2.0),
-                        )),
+                        ),
+                        suffixIcon: emailController.text.isEmpty
+                            ? null
+                            : IconButton(
+                                icon: Icon(
+                                  Icons.clear,
+                                  color: Colors.green,
+                                ),
+                                onPressed: () {
+                                  setState(() {
+                                    emailController.clear();
+                                  });
+                                },
+                              )),
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
@@ -123,6 +143,9 @@ class _MyWidgetState extends State<LoginScreen> {
                       RegExp regex = RegExp(emailPattern);
                       if (!regex.hasMatch(value)) {
                         return 'email_invalid'.tr();
+                      }
+                      if (loginlError != null) {
+                        return loginlError;
                       }
                       return null;
                     },
@@ -145,7 +168,8 @@ class _MyWidgetState extends State<LoginScreen> {
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(color: Colors.green, width: 2.5),
                       ),
-                      suffixIcon: IconButton(
+                      suffixIcon: passwordController.text.isEmpty? null:
+                      IconButton(
                         icon: Icon(
                           _obscurePassword
                               ? Icons.visibility
@@ -159,12 +183,16 @@ class _MyWidgetState extends State<LoginScreen> {
                         },
                       ),
                     ),
+                    autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'password_required'.tr();
                       }
                       if (value.length < 6) {
                         return 'password_min_length'.tr();
+                      }
+                      if (loginlError != null) {
+                        return loginlError;
                       }
                       return null;
                     },
@@ -178,12 +206,20 @@ class _MyWidgetState extends State<LoginScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
-                  'forgot_password'.tr(),
-                  style: TextStyle(
-                    color: Colors.green,
-                    //fontWeight: FontWeight.bold,
-                    fontSize: 17,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ForgotPasswordScreen()));
+                  },
+                  child: Text(
+                    'forgot_password'.tr(),
+                    style: TextStyle(
+                      color: Colors.green,
+                      //fontWeight: FontWeight.bold,
+                      fontSize: 17,
+                    ),
                   ),
                 ),
               ],

@@ -25,7 +25,7 @@ class _AppState extends State<App> {
   }
 
   void _getLocal() {
-    context.setLocale(vietnamLocal);
+    context.setLocale(englishLocal);
   }
 
   @override

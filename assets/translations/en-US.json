@@ -13,5 +13,12 @@
     "forgot_password": "Forgot your password?",
     "login_button": "Login",
     "didn't_have_account": "Didn't have Account?",
-    "sign_up": " Sign up"
+    "sign_up": " Sign up",
+    "error": "Error",
+    "login_error": "Email or password is incorrect",
+    "forgot_password_title": "Forgot Password",
+    "input_forgot_email": "Input your email",
+    "forgot_button": "Send reset password email",
+    "email_reset_required": "Email is incorrect",
+    "email_not_found": "Email not found"
 }
