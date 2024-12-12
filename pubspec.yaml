@@ -46,6 +46,7 @@ dependencies:
   either_dart: ^0.3.0
   json_annotation: ^4.8.0
   shared_preferences: ^2.3.3
+  firebase_database: ^11.2.0
 
 dev_dependencies:
   flutter_test:
