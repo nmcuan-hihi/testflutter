@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:testflutter/app/configs/route_name.dart';
 import 'package:testflutter/app/resources/color_manager.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:testflutter/services/auth_service.dart';
+
 
 class LoginGg extends StatefulWidget {
   const LoginGg({super.key});
@@ -12,7 +16,7 @@ class LoginGg extends StatefulWidget {
 class _LoginGgState extends State<LoginGg> with SingleTickerProviderStateMixin {
   final TextEditingController emailController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-  String? loginlError;
+  String? loginError;
 
   late AnimationController _controller;
 
@@ -29,16 +33,22 @@ class _LoginGgState extends State<LoginGg> with SingleTickerProviderStateMixin {
   }
 
   void handleLogin(BuildContext context) async {
-    emailController.text.trim();
+    emailController.text = emailController.text.trim();
 
     setState(() {
-      loginlError = null;
+      loginError = null;
     });
 
     if (formKey.currentState?.validate() == true) {
       String email = emailController.text.trim();
       // Handle login logic
     }
+  }
+
+  Future<void> handleGoogleLogin() async {
+    
+    AuthService().signInWithGoogle();
+    Navigator.pushNamed(context, RouteName.signUpScreen);
   }
 
   @override
@@ -104,8 +114,8 @@ class _LoginGgState extends State<LoginGg> with SingleTickerProviderStateMixin {
                 if (!regex.hasMatch(value)) {
                   return 'email_invalid'.tr();
                 }
-                if (loginlError != null) {
-                  return loginlError;
+                if (loginError != null) {
+                  return loginError;
                 }
                 return null;
               },
@@ -152,9 +162,7 @@ class _LoginGgState extends State<LoginGg> with SingleTickerProviderStateMixin {
             ),
             const SizedBox(height: 30),
             ElevatedButton.icon(
-              onPressed: () {
-                // Handle Google login
-              },
+              onPressed: handleGoogleLogin,
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(MediaQuery.of(context).size.width - 30, 50),
                 backgroundColor: Colors.white,

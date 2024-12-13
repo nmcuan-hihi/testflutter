@@ -47,6 +47,7 @@ dependencies:
   json_annotation: ^4.8.0
   shared_preferences: ^2.3.3
   firebase_database: ^11.2.0
+  google_sign_in: ^6.2.2
 
 dev_dependencies:
   flutter_test:
